@@ -1,62 +1,27 @@
-# ADPH Application Blueprint
+# ADPH Application Blueprint (Scaffolded)
 
-This repository now contains a **phase-1 project layout** for an enterprise ADPH application based on your stack:
+This repository now includes a concrete starter scaffold so implementation can begin immediately.
 
-- Java / J2EE, Spring Boot, Spring Batch, Spring Scheduler
-- Hibernate / JPA, SQL (Sybase/DB2 compatible)
-- REST + SOAP/XML integrations
-- React UI
-- JUnit, TestNG, Cucumber, Playwright, JRunner
-- CI/CD, Tomcat deployment
+## What is now scaffolded
 
-## Proposed Monorepo Structure
+- Maven multi-module backend parent (`adph-parent`) with dependency and plugin management.
+- Backend modules with initial `pom.xml` setup:
+  - `adph-common`
+  - `adph-domain`
+  - `adph-integration`
+  - `adph-eligibility-service`
+  - `adph-batch-jobs`
+  - `adph-scheduler`
+  - `adph-api-gateway`
+  - `adph-test-automation`
+- Initial Spring Boot entry point and starter eligibility REST endpoint.
+- Frontend module initialized with `package.json` placeholder scripts.
+- Existing docs/devops/qa folder layout retained for next phases.
 
-```text
-adph-app/
-  backend/
-    adph-parent/              # Maven parent + dependency management
-    adph-common/              # Shared utilities, constants, error model
-    adph-domain/              # Entities, repositories, domain services
-    adph-eligibility-service/ # Core business APIs and orchestration
-    adph-batch-jobs/          # Spring Batch jobs for ETL/reconciliation
-    adph-scheduler/           # Spring Scheduler based timed workflows
-    adph-integration/         # SOAP/REST clients, XML/XSLT/XPath transforms
-    adph-api-gateway/         # External API façade and cross-cutting concerns
-    adph-test-automation/     # Integration/E2E test harnesses
-  frontend/
-    adph-web/                 # React application
-  devops/
-    docker/                   # Container definitions
-    k8s/                      # Kubernetes manifests/helm values
-    ci-cd/                    # Pipeline definitions
-    observability/            # Logging/metrics/tracing configs
-  docs/
-    architecture/             # HLD/LLD, sequence and component diagrams
-    api/                      # OpenAPI contracts and examples
-    adr/                      # Architecture Decision Records
-  scripts/                    # Utility scripts for local/dev automation
-  qa/
-    performance/              # Load/performance test artifacts
-    security/                 # Security test scenarios/checklists
-    test-data/                # Seed datasets and synthetic fixtures
-```
+## Immediate next milestones
 
-## Suggested Build Strategy (Next Phase)
-
-1. Initialize backend as a Maven multi-module project.
-2. Initialize frontend with React + TypeScript.
-3. Define first vertical slice: `eligibility check` API + UI + persistence.
-4. Add test pyramid baseline (unit, integration, API contract, UI E2E).
-5. Add CI pipeline and quality gates (lint, test, coverage, SAST).
-
-## Non-Functional Baseline
-
-- **Design:** SOLID + layered/hexagonal boundaries
-- **Quality:** TDD-first for core domain services
-- **Performance:** profiling hooks (JProfiler/JProbe)
-- **Security:** secure config, secrets externalization, dependency scanning
-- **Observability:** structured logs, metrics, distributed tracing
-
----
-
-This is intentionally a structure-only baseline so we can decide module details and implementation priorities in the next step.
+1. Replace placeholder decision logic with rule-engine based service layer.
+2. Add persistence model (JPA entities, repositories, migrations).
+3. Add integration adapters for SOAP/XML and REST dependencies.
+4. Bootstrap React UI shell with route/module structure.
+5. Wire CI checks for unit tests, code quality, and API contract tests.
