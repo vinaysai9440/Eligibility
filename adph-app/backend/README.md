@@ -1,19 +1,37 @@
-# ADPH Backend Scaffold
+# ADPH Backend (Runnable)
 
-## Build entry point
+## Prerequisites
+- Java 17+
+- Maven 3.9+
 
-Run all backend modules from parent:
+## Start eligibility service
 
 ```bash
-cd adph-parent
-mvn clean test
+cd adph-app/backend
+mvn -pl adph-eligibility-service -am spring-boot:run
 ```
 
-## Implemented starter modules
+## Run tests
 
-- `adph-common`: shared record(s) and cross-cutting primitives.
-- `adph-domain`: starter domain model for eligibility request.
-- `adph-integration`: placeholder for SOAP/REST/XML integration adapters.
-- `adph-eligibility-service`: Spring Boot API with `/api/v1/eligibility/evaluate` endpoint.
+```bash
+cd adph-app/backend
+mvn -pl adph-eligibility-service -am test
+```
 
-Remaining modules are scaffolded and ready for incremental implementation.
+## Eligibility API contract
+
+- **Endpoint**: `POST /api/v1/eligibility/evaluate`
+- **Request**:
+
+```json
+{
+  "customerId": "WM-1001",
+  "productCode": "BANK_SILVER",
+  "market": "US"
+}
+```
+
+- **Rules implemented now**:
+  - unsupported market -> not eligible
+  - premium wealth products require customer IDs prefixed with `WM`
+  - otherwise eligible

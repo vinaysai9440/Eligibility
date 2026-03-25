@@ -1,27 +1,43 @@
-# ADPH Application Blueprint (Scaffolded)
+# ADPH Runnable Starter Application
 
-This repository now includes a concrete starter scaffold so implementation can begin immediately.
+You now have a runnable backend starter for the ADPH eligibility flow.
 
-## What is now scaffolded
+## Run the API
 
-- Maven multi-module backend parent (`adph-parent`) with dependency and plugin management.
-- Backend modules with initial `pom.xml` setup:
-  - `adph-common`
-  - `adph-domain`
-  - `adph-integration`
-  - `adph-eligibility-service`
-  - `adph-batch-jobs`
-  - `adph-scheduler`
-  - `adph-api-gateway`
-  - `adph-test-automation`
-- Initial Spring Boot entry point and starter eligibility REST endpoint.
-- Frontend module initialized with `package.json` placeholder scripts.
-- Existing docs/devops/qa folder layout retained for next phases.
+```bash
+cd adph-app/backend
+mvn -pl adph-eligibility-service -am spring-boot:run
+```
 
-## Immediate next milestones
+Service starts at: `http://localhost:8080`
 
-1. Replace placeholder decision logic with rule-engine based service layer.
-2. Add persistence model (JPA entities, repositories, migrations).
-3. Add integration adapters for SOAP/XML and REST dependencies.
-4. Bootstrap React UI shell with route/module structure.
-5. Wire CI checks for unit tests, code quality, and API contract tests.
+## Test endpoint
+
+```bash
+curl -X POST http://localhost:8080/api/v1/eligibility/evaluate \
+  -H 'Content-Type: application/json' \
+  -d '{"customerId":"WM-1001","productCode":"BANK_SILVER","market":"US"}'
+```
+
+Sample response:
+
+```json
+{
+  "customerId": "WM-1001",
+  "productCode": "BANK_SILVER",
+  "market": "US",
+  "eligible": true,
+  "decisionReason": "ELIGIBLE"
+}
+```
+
+## Included backend modules
+
+- `adph-common` shared primitives
+- `adph-domain` request/domain model
+- `adph-integration` SOAP/REST adapter placeholder
+- `adph-eligibility-service` runnable Spring Boot API
+- `adph-batch-jobs` Spring Batch placeholder
+- `adph-scheduler` scheduler placeholder
+- `adph-api-gateway` edge/gateway placeholder
+- `adph-test-automation` Cucumber/TestNG placeholder

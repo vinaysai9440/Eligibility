@@ -1,7 +1,8 @@
 package com.adph.eligibility.api;
 
 import com.adph.domain.model.EligibilityRequest;
-import java.util.Map;
+import com.adph.eligibility.service.EligibilityDecisionService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/eligibility")
 public class EligibilityController {
 
+  private final EligibilityDecisionService decisionService;
+
+  public EligibilityController(EligibilityDecisionService decisionService) {
+    this.decisionService = decisionService;
+  }
+
   @PostMapping("/evaluate")
-  public Map<String, Object> evaluate(@RequestBody EligibilityRequest request) {
-    return Map.of(
-        "customerId", request.customerId(),
-        "productCode", request.productCode(),
-        "market", request.market(),
-        "eligible", Boolean.TRUE,
-        "decisionReason", "RULES_NOT_IMPLEMENTED_YET");
+  public EligibilityDecisionResponse evaluate(@Valid @RequestBody EligibilityRequest request) {
+    return decisionService.evaluate(request);
   }
 }
